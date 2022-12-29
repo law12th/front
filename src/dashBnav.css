@@ -1,0 +1,35 @@
+
+.top{
+    display: flex;
+    justify-content: space-between;
+    background-color: #e1e3eb;
+    right: 0;
+    height:50px;
+    font-family: 'Montserrat', sans-serif;
+
+   
+}
+
+
+
+.btn2{
+    width: 200px;
+    height: 50px;
+    border-style: none;
+    background-color: #1E90FF;
+    margin-top: 0;
+    color:white;
+}
+
+.btn3{
+    width: 200px;
+    height: 50px;
+    color:white;
+    border-style: none;
+    margin-top: 0;
+    background-color: red;
+}
+
+
+
+

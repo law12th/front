@@ -1,0 +1,47 @@
+#form{
+    font-family: 'Montserrat', sans-serif;
+    justify-content: center;
+    text-align: center;
+    text-align: center;
+    justify-content: center;
+    padding-top: 90px;
+    padding-bottom: 90px;
+    background-color: #e1e3eb;
+    min-width: 350px;
+    min-height: 650px;
+}
+
+.form2{
+    background-color: white;
+    text-align: center;
+    justify-content: center;
+    border-radius: 1em;
+    box-shadow: 0 0.188em 1.550em rgb(156, 156, 156);
+    padding-top: 50px;
+    padding-bottom: 50px;
+    flex-direction: column;
+    height: 30%;
+    align-items: center;
+    min-width: 350px;
+    
+    
+}
+
+.L{
+    
+    width: 300px;
+    height:30px;
+    font-size: small;
+    font-weight: 100;
+}
+
+.sb{
+    text-align: center;
+    width: 100px;
+    height:30px;
+    background-color: #1E90FF;
+    border: none;
+    border-radius: 0.5em;
+    font-size: small;
+    font-weight: 100;
+}
