@@ -1,25 +1,40 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../addDoctors.css";
-import { addAppointment } from "../api";
+import { AuthContext } from "../context/authProvider";
 
 function AddAppointment() {
   const navigate = useNavigate();
-  const [appointment, setAppointment] = useState({
-    appointmentTime: "",
-  });
+
+  const { auth } = useContext(AuthContext);
+
+  const [appointmentTime, setAppointmentTime] = useState("");
+  const [doctors, setDoctors] = useState([]);
+  const [doctorId, setDoctorId] = useState(0);
+
+  useEffect(() => {
+    const getDoctors = async () => {
+      await axios
+        .get("http://localhost:8080/api/admin/get-doctors")
+        .then((res) => {
+          setDoctors(res.data);
+          console.log(res.data);
+        })
+        .catch((e) => console.log(e));
+    };
+
+    getDoctors();
+  }, []);
 
   const onSubmit = async (e) => {
-    // prevent page from reloading when a form is submitted
     e.preventDefault();
 
-    await addAppointment(appointment)
-      .then(() => {
-        navigate("/thankU");
-      })
-      .catch((e) => console.log(e));
-
-    // onClick={() => {navigate('/finaldoctorsdb')}}
+    await axios.post("http://localhost:8080/api/patient/add-appointment", {
+      doctorId,
+      appointmentTime,
+      patientId: auth.userId,
+    });
   };
 
   return (
@@ -30,21 +45,26 @@ function AddAppointment() {
         <br />
         <br />
         <input
-          type="date"
+          type="datetime-local"
           className="L"
           required="required"
           placeholder="Enter date..."
-          onChange={(e) =>
-            setAppointment({ ...appointment, appointmentTime: e.target.value })
-          }
-          value={appointment.appointmentDate}
+          onChange={(e) => setAppointmentTime(e.target.value)}
+          value={appointmentTime}
         />
         <br />
         <br />
         <br />
+        <select placeholder="name">
+          {doctors &&
+            doctors.map((doctor) => (
+              <option onChange={() => setDoctorId(doctor.id)} value={doctor.id}>
+                Dr {doctor.firstName} {doctor.lastName}
+              </option>
+            ))}
+        </select>
         <br />
         <button
-          type="submit"
           className="sb"
           onClick={() => {
             navigate("/");
@@ -52,7 +72,9 @@ function AddAppointment() {
         >
           CLOSE
         </button>{" "}
-        <button className="sb">ADD</button>
+        <button type="submit" className="sb">
+          ADD
+        </button>
         <br />
         <br />
         <p>
