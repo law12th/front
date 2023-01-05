@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "../adminDb.css";
+import ApproveAppointment from "./approveAppointment";
 
 const Doctorsdb = (props) => {
   const [appointments, setAppointments] = useState([]);
@@ -28,19 +29,30 @@ const Doctorsdb = (props) => {
           <tr>
             <th>Doctor</th>
             <th>Patient</th>
-            <th>Appointment Time</th>
+            <th>Time</th>
+            <th>Details</th>
             <th>approval</th>
           </tr>
         </thead>
         <tbody>
           {appointments &&
             appointments.map(
-              ({ appointmentTime, approval, doctorName, patientName }) => (
-                <tr>
+              ({
+                id,
+                appointmentTime,
+                approval,
+                doctorName,
+                patientName,
+                details,
+              }) => (
+                <tr key={id}>
                   <td>{doctorName}</td>
                   <td>{patientName}</td>
                   <td>{appointmentTime}</td>
-                  <td>{approval}</td>
+                  <td>{details}</td>
+                  <td>
+                    {!approval ? <ApproveAppointment id={id} /> : "Approve"}
+                  </td>
                 </tr>
               )
             )}
